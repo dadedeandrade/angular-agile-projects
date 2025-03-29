@@ -1,0 +1,13 @@
+<button [routerLink]="['']" routerLinkActive="router-link-active">
+  voltar
+</button>
+
+<div *ngIf="selectedProject">
+  <h2>Projeto:</h2>
+  <p>{{ selectedProject.id }} - {{ selectedProject.name }}</p>
+
+  <label for="taskList">Tasks</label>
+  <ul id="taskList">
+    <li *ngFor="let item of selectedProject.tasks">{{ item.title }}</li>
+  </ul>
+</div>

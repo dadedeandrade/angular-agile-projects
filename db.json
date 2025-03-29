@@ -1,0 +1,69 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "Site Corporativo",
+      "description": "Desenvolvimento do site institucional da empresa.",
+      "status": "Em andamento",
+      "createdAt": "2025-03-20",
+      "completedAt": null,
+      "tasks": [
+        {
+          "id": 101,
+          "title": "Criar wireframe",
+          "description": "Esboçar a estrutura das páginas.",
+          "priority": "Alta",
+          "status": "Concluído"
+        },
+        {
+          "id": 102,
+          "title": "Desenvolver home page",
+          "description": "Implementar a página principal.",
+          "priority": "Média",
+          "status": "Em progresso"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Aplicativo Mobile",
+      "description": "Criação de um aplicativo para iOS e Android.",
+      "status": "Planejado",
+      "createdAt": "2025-03-25",
+      "completedAt": null,
+      "tasks": [
+        {
+          "id": 201,
+          "title": "Definir funcionalidades",
+          "description": "Listar as principais features do app.",
+          "priority": "Alta",
+          "status": "Pendente"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Sistema de Gestão Financeira",
+      "description": "Desenvolvimento de um sistema para controle financeiro.",
+      "status": "Concluído",
+      "createdAt": "2025-02-10",
+      "completedAt": "2025-03-15",
+      "tasks": [
+        {
+          "id": 301,
+          "title": "Desenvolver backend",
+          "description": "Criar API para gerenciamento financeiro.",
+          "priority": "Alta",
+          "status": "Concluído"
+        },
+        {
+          "id": 302,
+          "title": "Criar dashboard",
+          "description": "Interface gráfica para visualização dos dados financeiros.",
+          "priority": "Média",
+          "status": "Concluído"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+<mat-list>
+  <li *ngFor="let el of projects">
+    Nome: <a [routerLink]="['/project', el.id]">{{ el.name }}</a>
+  </li>
+</mat-list>
