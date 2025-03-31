@@ -1,7 +1,14 @@
+<mat-toolbar color="primary" class="mat-elevation-z8 header">
+  <span class="header-logo-desktop">Angular Agile Projects</span>
+  <span class="header-logo-mobile">AAP</span>
+
+  <span class="spacer"></span>
+
+  <button mat-button (click)="openAddDialogProject()">Add Project</button>
+</mat-toolbar>
+
 <mat-list>
   <li *ngFor="let el of projects">
     Nome: <a [routerLink]="['/project', el.id]">{{ el.name }}</a>
   </li>
 </mat-list>
-
-<button mat-button (click)="openAddDialogProject()">Add Project</button>
