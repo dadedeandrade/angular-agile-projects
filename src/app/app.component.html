@@ -4,7 +4,12 @@
 
   <span class="spacer"></span>
 
-  <button mat-button (click)="openAddDialogProject()">Add Project</button>
+  <button *ngIf="isHome" mat-button (click)="openAddDialogProject()">
+    Add Project
+  </button>
+  <button *ngIf="isTaskPage" mat-button (click)="openAddDialogProject()">
+    Add Task
+  </button>
 </mat-toolbar>
 
 <router-outlet />

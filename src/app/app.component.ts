@@ -1,28 +1,51 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { filter, distinctUntilChanged } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatToolbarModule, MatButtonModule],
+  imports: [RouterOutlet, MatToolbarModule, MatButtonModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'angular-agile-projects';
-  constructor(private dialog: MatDialog) {}
+  isHome: boolean = false;
+  isProjectPage: boolean = false;
+  isTaskPage: boolean = false;
+
+  constructor(private dialog: MatDialog, private router: Router) {
+    this.router.events
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        ),
+        distinctUntilChanged(
+          (prev, curr) => prev.urlAfterRedirects === curr.urlAfterRedirects
+        )
+      )
+      .subscribe((event) => this.updatePageFlags(event.urlAfterRedirects));
+  }
+  private updatePageFlags(url: string): void {
+    this.isHome = url.startsWith('/home');
+    this.isProjectPage = url.startsWith('/project');
+    this.isTaskPage = url.includes('/task');
+  }
 
   openAddDialogProject() {
     this.openDialog(DialogComponent);
   }
 
   openDialog(component: any) {
-    let dialog = this.dialog.open(component);
-    dialog.afterClosed().subscribe((item) => {
-      console.log('Dados afterclose', item);
-    });
+    this.dialog
+      .open(component)
+      .afterClosed()
+      .subscribe((item) => {
+        console.log('Dados afterclose', item);
+      });
   }
 }
