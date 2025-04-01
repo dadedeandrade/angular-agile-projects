@@ -9,11 +9,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../types/Project';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
-  selector: 'app-project-list',
+  selector: 'project-list',
   imports: [
     MatListModule,
     RouterModule,
@@ -31,7 +29,6 @@ export class ProjectListComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private dialog: MatDialog
   ) {
     this.getProjects();
   }
@@ -47,16 +44,5 @@ export class ProjectListComponent implements OnInit {
     this.projectService
       .getAll()
       .subscribe((projects) => (this.projects = projects));
-  }
-
-  openAddDialogProject() {
-    this.openDialog(DialogComponent);
-  }
-
-  openDialog(component: any) {
-    let dialog = this.dialog.open(component);
-    dialog.afterClosed().subscribe((item) => {
-      console.log('Dados afterclose', item);
-    });
   }
 }
