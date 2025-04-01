@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .header-logo-mobile {
+    display: none;
+  }
+  @media (max-width: 425px) {
+    .header-logo-desktop {
+      display: none;
+    }
+    .header-logo-mobile {
+      display: block;
+    }
+  }
+  
