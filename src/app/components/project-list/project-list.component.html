@@ -1,5 +1,50 @@
-<mat-list>
-  <li *ngFor="let el of projects">
-    Nome: <a [routerLink]="['/project', el.id]">{{ el.name }}</a>
-  </li>
-</mat-list>
+<div class="project-list-container">
+  <mat-card
+    *ngFor="let el of projects"
+    class="project-list-item"
+    appearance="outlined"
+  >
+    <mat-card-header class="mat-card-header-align-center">
+      <mat-card-title-group>
+        <mat-card-title> {{ el.id }} - {{ el.name }}</mat-card-title>
+        <div class="project-list-item__actions">
+          <button (click)="editProject()" mat-fab color="accent">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="removeProject()" mat-fab>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <br />
+      <p class="project-list-item__hintMessage">
+        {{
+          el.description
+            ? el.description
+            : "Ainda não há descrição deste projeto"
+        }}
+      </p>
+      <p class="project-list-item__hintMessage">
+        {{
+          el.tasks
+            ? el.tasks
+            : "Não há tarefas atribuídas a este projeto, abra-o para criar a primeira!"
+        }}
+      </p>
+    </mat-card-content>
+    <mat-card-footer class="project-list-item__footer">
+      <div class="project-list-item__createdAt">
+        <p>Data de criação</p>
+        <i>{{ el.createdAt }}</i>
+      </div>
+      <mat-chip-set aria-label="Project details">
+        <app-project-status-chip
+          [status]="el.status"
+          [completedAt]="el.completedAt"
+        ></app-project-status-chip>
+      </mat-chip-set>
+    </mat-card-footer>
+  </mat-card>
+</div>

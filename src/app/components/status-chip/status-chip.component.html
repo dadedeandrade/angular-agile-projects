@@ -1,0 +1,7 @@
+<mat-chip [color]="chipColor" selected>
+  {{ status }}
+  <span *ngIf="status === 'Concluído' && completedAt" class="date">
+    em {{ completedAt | date : "dd/MM/yyyy" }}
+  </span>
+</mat-chip>
+<br *ngIf="status === 'Concluído' && completedAt" />

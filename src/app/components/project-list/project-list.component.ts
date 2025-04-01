@@ -6,10 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatGridListModule } from '@angular/material/grid-list';
 
-import { ProjectService } from '../../services/project.service';
 import { Project } from '../../types/Project';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { StatusChipComponent } from '../status-chip/status-chip.component';
 
 @Component({
   selector: 'project-list',
@@ -21,6 +24,10 @@ import { LocalStorageService } from '../../services/local-storage.service';
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatCardModule,
+    MatChipsModule,
+    MatGridListModule,
+    StatusChipComponent,
   ],
   templateUrl: './project-list.component.html',
   styleUrl: './project-list.component.css',
@@ -29,7 +36,6 @@ export class ProjectListComponent implements OnInit {
   projects: Project[] = [];
 
   constructor(
-    private projectService: ProjectService,
     localStorageService: LocalStorageService
   ) {
     this.projects = localStorageService.getProjects();
@@ -37,8 +43,11 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  removeProject(project: Project) {
-    console.log('Removendo [projeto]...');
-    this.projects = this.projectService.remove(this.projects, project);
+  removeProject() {
+    alert('Removendo [projeto]...');
+  }
+
+  editProject(){
+    alert('card')
   }
 }
