@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../types/Project';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'project-list',
@@ -29,8 +30,9 @@ export class ProjectListComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
+    localStorageService: LocalStorageService
   ) {
-    this.getProjects();
+    this.projects = localStorageService.getProjects();
   }
 
   ngOnInit(): void {}
@@ -38,11 +40,5 @@ export class ProjectListComponent implements OnInit {
   removeProject(project: Project) {
     console.log('Removendo [projeto]...');
     this.projects = this.projectService.remove(this.projects, project);
-  }
-
-  getProjects(): void {
-    this.projectService
-      .getAll()
-      .subscribe((projects) => (this.projects = projects));
   }
 }

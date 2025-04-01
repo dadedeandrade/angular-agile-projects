@@ -1,6 +1,6 @@
 <mat-dialog-content class="mat-typography">
   <h2 mat-dialog-title>Adicionar Projeto</h2>
-  <form [formGroup]="myform" (ngSubmit)="saveProject()" class="dialog-form">
+  <form [formGroup]="myform" (ngSubmit)="addNewProject()" class="dialog-form">
     <mat-form-field>
       <mat-label>Nome do Projeto</mat-label>
       <input matInput formControlName="name" required />
@@ -33,6 +33,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="start">
-  <button mat-raised-button type="submit" color="primary">Salvar</button>
+  <button mat-raised-button type="submit" color="primary" (click)="addNewProject()">Salvar</button>
   <button mat-raised-button color="warn" (click)="closeDialog()">Fechar</button>
 </mat-dialog-actions>
