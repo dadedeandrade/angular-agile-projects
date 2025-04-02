@@ -1,0 +1,24 @@
+.project-detail-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+.project-detail-is-mobile .project-detail-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+.project-detail-sidenav-container {
+  flex: 1;
+}
+
+.project-detail-is-mobile .project-detail-sidenav-container {
+  flex: 1 0 auto;
+}
+
+@media (min-width: 600px) {
+  .project-detail-toolbar {
+    display: none;
+  }
+}

@@ -1,4 +1,8 @@
-<mat-toolbar color="primary" class="mat-elevation-z8 header">
+<mat-toolbar
+  *ngIf="!(isProjectPage && isMobile)"
+  color="primary"
+  class="mat-elevation-z8 header"
+>
   <span class="header-logo-desktop">Angular Agile Projects</span>
   <span class="header-logo-mobile">AAP</span>
 

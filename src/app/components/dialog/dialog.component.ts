@@ -73,7 +73,7 @@ export class DialogComponent implements OnInit {
   }
 
   closeDialog() {
-    this.ref.close('Closed using function');
+    this.ref.close('');
   }
 
   addNewProject() {

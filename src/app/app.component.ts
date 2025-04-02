@@ -6,6 +6,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { ResponsiveService } from './services/responsive.service';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +19,14 @@ export class AppComponent {
   isHome: boolean = false;
   isProjectPage: boolean = false;
   isTaskPage: boolean = false;
+  subscription!: Subscription;
+  isMobile: boolean = false;
 
-  constructor(private dialog: MatDialog, private router: Router) {
+  constructor(
+    private dialog: MatDialog,
+    private router: Router,
+    private responsiveService: ResponsiveService
+  ) {
     this.router.events
       .pipe(
         filter(
@@ -47,5 +55,13 @@ export class AppComponent {
       .subscribe((item) => {
         console.log('Dados afterclose', item);
       });
+  }
+
+  ngOnInit() {
+    this.subscription = this.responsiveService.isMobile$.subscribe(
+      (isMobile) => {
+        this.isMobile = isMobile;
+      }
+    );
   }
 }

@@ -26,6 +26,11 @@ export class LocalStorageService {
   getProjects(): Project[] {
     return this.projectsSubject.getValue().projects;
   }
+  getProjectById(id: number): Project | undefined {
+    return this.projectsSubject
+      .getValue()
+      .projects.find((el) => el.id === Number(id));
+  }
 
   saveProjects(projects: Project[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify({ projects }));

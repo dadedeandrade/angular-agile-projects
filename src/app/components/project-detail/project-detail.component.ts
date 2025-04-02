@@ -1,31 +1,44 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Project } from '../../types/Project';
-import { ProjectService } from '../../services/project.service';
-import { CommonModule, JsonPipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { ResponsiveService } from '../../services/responsive.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-project-detail',
-  imports: [RouterModule, CommonModule, JsonPipe],
-  templateUrl: './project-detail.component.html',
-  styleUrl: './project-detail.component.css',
+  selector: 'project-detail',
+  templateUrl: 'project-detail.component.html',
+  styleUrl: 'project-detail.component.css',
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+  ],
 })
 export class ProjectDetailComponent {
-  selectedProject?: Project;
+  selectedProject;
+  subscription!: Subscription;
+  isMobile: boolean = false;
 
   constructor(
-    private projectService: ProjectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    localStorageService: LocalStorageService,
+    private responsiveService: ResponsiveService
   ) {
-    this.getProject();
+    const projectId = this.route.snapshot.params['projectId'];
+    this.selectedProject = localStorageService.getProjectById(projectId);
   }
-
-  NgOnInit(): void {}
-
-  getProject() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.projectService
-      .getItem(id)
-      .subscribe((project) => (this.selectedProject = project));
+  ngOnInit() {
+    this.subscription = this.responsiveService.isMobile$.subscribe(
+      (isMobile) => {
+        this.isMobile = isMobile;
+      }
+    );
   }
 }

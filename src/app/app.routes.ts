@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
-  { path: 'project/:id', component: ProjectDetailComponent },
+  { path: 'project/:projectId', component: ProjectDetailComponent },
   //   { path: 'project/:projectId/task/:taskId', component: TaskDetailComponent },
   { path: '**', redirectTo: 'home' },
 ];
