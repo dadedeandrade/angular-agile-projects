@@ -8,7 +8,7 @@
       <mat-card-title-group>
         <mat-card-title> {{ el.id }} - {{ el.name }}</mat-card-title>
         <div class="project-list-item__actions">
-          <button (click)="editProject()" mat-fab color="accent">
+          <button [routerLink]="['/project', el.id]" mat-fab color="accent">
             <mat-icon>edit</mat-icon>
           </button>
           <button (click)="removeProject()" mat-fab>

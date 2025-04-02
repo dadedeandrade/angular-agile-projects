@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +20,7 @@ import { StatusChipComponent } from '../status-chip/status-chip.component';
     MatListModule,
     RouterModule,
     CommonModule,
+    RouterLink,
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
@@ -35,9 +36,7 @@ import { StatusChipComponent } from '../status-chip/status-chip.component';
 export class ProjectListComponent implements OnInit {
   projects: Project[] = [];
 
-  constructor(
-    localStorageService: LocalStorageService
-  ) {
+  constructor(localStorageService: LocalStorageService) {
     this.projects = localStorageService.getProjects();
   }
 
@@ -47,7 +46,7 @@ export class ProjectListComponent implements OnInit {
     alert('Removendo [projeto]...');
   }
 
-  editProject(){
-    alert('card')
+  editProject() {
+    alert('card');
   }
 }
