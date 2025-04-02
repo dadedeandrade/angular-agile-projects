@@ -1,10 +1,5 @@
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-  priority: 'Baixa' | 'Média' | 'Alta';
-  status: 'Pendente' | 'Em progresso' | 'Concluído';
-}
+import { Task } from "./Task";
+
 export interface Project {
   id: number;
   name: string;

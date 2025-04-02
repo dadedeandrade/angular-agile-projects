@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Project } from '../types/Project';
 import { BehaviorSubject } from 'rxjs';
 import { generateUniqueId } from '../helpers/id-generator';
+import { Task } from '../types/Task';
 
 interface Test {
   projects: Project[];
@@ -44,5 +45,9 @@ export class LocalStorageService {
     };
     projects.push(projectWithId);
     this.saveProjects(projects);
+  }
+
+  addNewTask(projectId: number, task: Task) {
+    console.log(projectId, task);
   }
 }

@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { ResponsiveService } from './services/responsive.service';
 import { MatIcon } from '@angular/material/icon';
 import { AddProjectDialogComponent } from './components/add-project-dialog/add-project-dialog.component';
+import { AddTaskDialogComponent } from './components/add-task-dialog/add-task-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -59,6 +60,10 @@ export class AppComponent {
 
   openAddProjectDialog() {
     this.openDialog(AddProjectDialogComponent);
+  }
+
+  openAddTaskDialog() {
+    this.openDialog(AddTaskDialogComponent);
   }
 
   openDialog(component: any) {
