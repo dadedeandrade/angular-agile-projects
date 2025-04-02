@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -18,7 +23,7 @@ import { MatIcon } from '@angular/material/icon';
     MatButtonModule,
     CommonModule,
     MatIcon,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -52,7 +57,7 @@ export class AppComponent {
     this.isTaskPage = url.includes('/task');
   }
 
-  openAddDialogProject() {
+  openAddProjectDialog() {
     this.openDialog(DialogComponent);
   }
 

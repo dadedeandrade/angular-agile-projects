@@ -14,14 +14,14 @@
 
   <span class="spacer"></span>
 
-  <button *ngIf="isHome" mat-stroked-button (click)="openAddDialogProject()">
+  <button *ngIf="isHome" mat-stroked-button (click)="openAddProjectDialog()">
     Adicionar Projeto
   </button>
 
   <button
     *ngIf="isProjectPage"
     mat-stroked-button
-    (click)="openAddDialogProject()"
+    (click)="openAddProjectDialog()"
   >
     Adicionar Tarefa
   </button>
