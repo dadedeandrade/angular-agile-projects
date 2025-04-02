@@ -1,6 +1,6 @@
 <mat-dialog-content class="mat-typography">
   <h2 mat-dialog-title>Adicionar Projeto</h2>
-  <form [formGroup]="myform" (ngSubmit)="addNewProject()" class="dialog-form">
+  <form [formGroup]="projectForm" (ngSubmit)="addNewProject()" class="dialog-form">
     <mat-form-field>
       <mat-label>Nome do Projeto</mat-label>
       <input matInput formControlName="name" required />

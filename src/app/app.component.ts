@@ -7,13 +7,13 @@ import {
 } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from './components/dialog/dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from './services/responsive.service';
 import { MatIcon } from '@angular/material/icon';
+import { AddProjectDialogComponent } from './components/add-project-dialog/add-project-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -58,7 +58,7 @@ export class AppComponent {
   }
 
   openAddProjectDialog() {
-    this.openDialog(DialogComponent);
+    this.openDialog(AddProjectDialogComponent);
   }
 
   openDialog(component: any) {

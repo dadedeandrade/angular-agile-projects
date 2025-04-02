@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,25 +6,23 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  MAT_DIALOG_DATA,
   MatDialogRef,
   MatDialogContent,
   MatDialogActions,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatOption, MatSelect } from '@angular/material/select';
+import { MatSelect, MatOption } from '@angular/material/select';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Project } from '../../types/Project';
+
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css'],
+  selector: 'app-add-project-dialog',
+  templateUrl: './add-project-dialog.component.html',
+  styleUrls: ['./add-project-dialog.component.css'],
   imports: [
     MatFormFieldModule,
-    MatCheckboxModule,
     MatInputModule,
     MatButtonModule,
     MatDialogContent,
@@ -34,19 +32,17 @@ import { Project } from '../../types/Project';
     ReactiveFormsModule,
   ],
 })
-export class DialogComponent implements OnInit {
-  myform!: FormGroup;
-  isCompletedAtRequired: boolean = false;
-
+export class AddProjectDialogComponent implements OnInit {
+  projectForm!: FormGroup;
+  
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private ref: MatDialogRef<DialogComponent>,
+    private dialogRef: MatDialogRef<AddProjectDialogComponent>,
     private fb: FormBuilder,
     private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
-    this.myform = this.fb.nonNullable.group<Project>({
+    this.projectForm = this.fb.nonNullable.group<Project>({
       id: 1,
       name: '',
       description: '',
@@ -59,27 +55,25 @@ export class DialogComponent implements OnInit {
   }
 
   private setupConditionalValidation(): void {
-    this.myform.get('status')?.valueChanges.subscribe((status) => {
-      const completedAtControl = this.myform.get('completedAt');
-
+    this.projectForm.get('status')?.valueChanges.subscribe((status) => {
+      const completedAtControl = this.projectForm.get('completedAt');
       if (status === 'Concluído') {
         completedAtControl?.setValidators(Validators.required);
       } else {
         completedAtControl?.clearValidators();
       }
-
       completedAtControl?.updateValueAndValidity();
     });
   }
 
   closeDialog() {
-    this.ref.close('');
+    this.dialogRef.close();
   }
 
   addNewProject() {
-    if (this.myform.valid) {
-      this.ref.close(this.myform.value);
-      this.localStorageService.addNewProject(this.myform.value);
+    if (this.projectForm.valid) {
+      this.localStorageService.addNewProject(this.projectForm.value);
+      this.dialogRef.close(this.projectForm.value);
     }
   }
 }
