@@ -1,12 +1,12 @@
-<div class="project-detail-container" [class.project-detail-is-mobile]="isMobile">
-  <mat-toolbar class="project-detail-toolbar">
+<div class="project-detail" [class.project-detail--is-mobile]="isMobile">
+  <mat-toolbar class="project-detail__toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
   </mat-toolbar>
 
   <mat-sidenav-container
-    class="project-detail-sidenav-container"
+    class="project-detail__sidenav-container"
     [style.marginTop.px]="isMobile ? 56 : 0"
   >
     <mat-sidenav
@@ -15,19 +15,47 @@
       [fixedInViewport]="isMobile"
       fixedTopGap="56"
       [opened]="!isMobile"
+      class="project-detail__sidenav"
     >
-      <mat-nav-list>
-        <a mat-list-item>teste</a>
-      </mat-nav-list>
+      <h2>Informações do projeto:</h2>
+      <mat-divider></mat-divider>
+
+      <mat-list *ngIf="selectedProject">
+        <mat-list-item class="project-detail__sidenav-description">
+          <span matListItemTitle>Nome: {{ selectedProject.name }}</span>
+          <span
+            *ngIf="selectedProject.description"
+            class="project-detail__sidenav-description-text"
+          >
+            {{ selectedProject.description }}
+          </span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <app-project-status-chip
+            [status]="selectedProject.status"
+            [completedAt]="selectedProject.completedAt"
+          ></app-project-status-chip>
+        </mat-list-item>
+
+        <mat-list-item>
+          <span matListItemTitle
+            >Data de criação: {{ selectedProject.createdAt }}</span
+          >
+        </mat-list-item>
+
+        <mat-list-item *ngIf="selectedProject.completedAt">
+          <span matListItemTitle
+            >Data de conclusão: {{ selectedProject.completedAt }}</span
+          >
+        </mat-list-item>
+      </mat-list>
+
+      <button mat-button>Editar projeto</button>
     </mat-sidenav>
 
     <mat-sidenav-content>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-      eveniet, voluptates magnam unde, quas cum eum facilis nemo repudiandae
-      perferendis ex eaque aliquam voluptatem? Facilis minus, magnam
-      exercitationem dignissimos harum animi expedita quasi impedit voluptatum
-      fugit illum, accusamus molestiae. Atque in deleniti sit temporibus a quo
-      minima illo beatae corrupti.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit...
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

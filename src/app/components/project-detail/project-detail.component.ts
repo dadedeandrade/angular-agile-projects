@@ -8,6 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ResponsiveService } from '../../services/responsive.service';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { StatusChipComponent } from "../status-chip/status-chip.component";
 
 @Component({
   selector: 'project-detail',
@@ -19,7 +21,9 @@ import { Subscription } from 'rxjs';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-  ],
+    CommonModule,
+    StatusChipComponent
+],
 })
 export class ProjectDetailComponent {
   selectedProject;

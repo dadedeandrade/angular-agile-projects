@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -8,10 +8,18 @@ import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ResponsiveService } from './services/responsive.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatToolbarModule, MatButtonModule, CommonModule],
+  imports: [
+    RouterOutlet,
+    MatToolbarModule,
+    MatButtonModule,
+    CommonModule,
+    MatIcon,
+    RouterModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
