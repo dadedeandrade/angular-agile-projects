@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,8 +14,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelect, MatOption } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 import { ProjectFormGroup } from '../../types/Project';
 import { ProjectService } from '../../services/project.service';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-add-project-dialog',
@@ -30,14 +34,18 @@ import { ProjectService } from '../../services/project.service';
     MatOption,
     MatDialogActions,
     ReactiveFormsModule,
+    CommonModule,
+    MatDatepickerModule,
   ],
+  providers: [provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddProjectDialogComponent implements OnInit {
   projectForm!: FormGroup;
 
   constructor(
     private dialogRef: MatDialogRef<AddProjectDialogComponent>,
-    private projectDataService: ProjectService 
+    private projectDataService: ProjectService
   ) {}
 
   ngOnInit(): void {
@@ -74,5 +82,6 @@ export class AddProjectDialogComponent implements OnInit {
       this.projectDataService.addNewProject(this.projectForm.value);
       this.dialogRef.close(this.projectForm.value);
     }
+    this.projectForm.markAllAsTouched();
   }
 }

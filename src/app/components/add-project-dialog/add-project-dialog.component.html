@@ -35,10 +35,14 @@
       <mat-label>Data de Criação</mat-label>
       <input matInput formControlName="createdAt" type="date" />
     </mat-form-field>
-
-    <mat-form-field>
+    <mat-form-field *ngIf="projectForm.get('status')?.value == 'Concluído'">
       <mat-label>Data de Conclusão</mat-label>
-      <input matInput formControlName="completedAt" type="date" />
+      <input
+        matInput
+        formControlName="completedAt"
+        type="date"
+      />
+      <mat-hint>Preencha a data de conclusão</mat-hint>
     </mat-form-field>
   </form>
 </mat-dialog-content>
