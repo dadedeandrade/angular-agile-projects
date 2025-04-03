@@ -1,4 +1,5 @@
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -63,6 +64,13 @@ export class EditProjectBottomSheet {
     const statusControl = this.projectForm.get('status');
     const completedAtControl = this.projectForm.get('completedAt');
     const createdAtControl = this.projectForm.get('createdAt');
+
+    if (completedAtControl && createdAtControl) {
+      completedAtControl.setValidators([
+        completedDateValidator(createdAtControl),
+      ]);
+      completedAtControl.updateValueAndValidity();
+    }
 
     statusControl?.valueChanges.subscribe((status) => {
       if (status === 'Concluído') {
