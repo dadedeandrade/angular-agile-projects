@@ -39,7 +39,7 @@ export class ProjectListComponent implements OnInit {
   projects: Project[] = [];
   readonly panelOpenState = signal(false);
 
-  constructor(private projectDataService: ProjectService ) {
+  constructor(private projectDataService: ProjectService) {
     this.projects = projectDataService.getProjects();
   }
 
@@ -50,9 +50,5 @@ export class ProjectListComponent implements OnInit {
       this.projectDataService.removeProject(projectId);
       this.projects = this.projectDataService.getProjects();
     }
-  }
-
-  editProject() {
-    alert('card');
   }
 }

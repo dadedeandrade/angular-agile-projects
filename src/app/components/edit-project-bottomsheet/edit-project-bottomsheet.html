@@ -1,10 +1,6 @@
-<mat-dialog-content class="mat-typography">
-  <h2 mat-dialog-title>Adicionar Projeto</h2>
-  <form
-    [formGroup]="projectForm"
-    (ngSubmit)="addNewProject()"
-    class="dialog-form"
-  >
+<mat-nav-list>
+  <h2>Editar Projeto</h2>
+  <form class="edit-form" [formGroup]="projectForm">
     <mat-form-field>
       <mat-label>Nome do Projeto</mat-label>
       <input
@@ -35,22 +31,27 @@
       <mat-label>Data de Criação</mat-label>
       <input matInput formControlName="createdAt" type="date" />
     </mat-form-field>
+
     <mat-form-field *ngIf="projectForm.get('status')?.value == 'Concluído'">
       <mat-label>Data de Conclusão</mat-label>
       <input matInput formControlName="completedAt" type="date" />
       <mat-hint>Preencha a data de conclusão</mat-hint>
     </mat-form-field>
-  </form>
-</mat-dialog-content>
 
-<mat-dialog-actions align="start">
-  <button
-    mat-raised-button
-    type="submit"
-    color="primary"
-    (click)="addNewProject()"
-  >
-    Salvar
-  </button>
-  <button mat-raised-button color="warn" (click)="closeDialog()">Fechar</button>
-</mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="handleEditProjectButton($event)"
+    >
+      Salvar
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="handleCancelEditProjectButton($event)"
+    >
+      Cancelar
+    </button>
+  </form>
+</mat-nav-list>

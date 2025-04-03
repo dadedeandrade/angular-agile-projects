@@ -10,12 +10,15 @@ import {
   MatDialogContent,
   MatDialogActions,
 } from '@angular/material/dialog';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { Task, TaskFormGroup } from '../../types/Task';
+
 import { ProjectService } from '../../services/project.service';
+
+import { TaskFormGroup } from '../../types/Task';
 
 @Component({
   selector: 'app-add-task-dialog',

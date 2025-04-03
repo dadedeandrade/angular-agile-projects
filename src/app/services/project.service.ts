@@ -16,7 +16,7 @@ interface ProjectState {
 })
 export class ProjectService {
   private storageKey = 'projects';
-  private projectsSubject = new BehaviorSubject<ProjectState>(
+  public projectsSubject = new BehaviorSubject<ProjectState>(
     this.loadProjects()
   );
 
@@ -62,8 +62,6 @@ export class ProjectService {
       id: generateUniqueIdForTasks(selectedProjectForTheTask),
     };
 
-    console.log(taskWithId);
-
     selectedProjectForTheTask.tasks.push(taskWithId);
     this.saveNewTask(selectedProjectForTheTask);
   }
@@ -91,16 +89,24 @@ export class ProjectService {
     const projects = this.getProjects();
     const project = projects.find((el) => el.id === projectId);
 
-    console.log(projectId);
-
-    console.log(project);
-    console.log(projects);
-
     if (project) {
       project.tasks = project.tasks.filter((task) => task.id !== taskId);
       this.updateProjects(projects);
     } else {
       alert(`deu ruim no removeTask.`);
+    }
+  }
+
+  editProject(updatedProject: Project): void {
+    const projects = this.getProjects();
+    const index = projects.findIndex((el) => el.id === updatedProject.id);
+
+    if (index !== -1) {
+      projects[index] = { ...projects[index], ...updatedProject };
+      this.updateProjects(projects);
+      this.projectsSubject.next({ projects });
+    } else {
+      alert('proj n encontrad');
     }
   }
 }
