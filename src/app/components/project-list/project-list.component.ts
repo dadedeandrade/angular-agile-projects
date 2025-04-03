@@ -12,8 +12,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import { Project } from '../../types/Project';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { StatusChipComponent } from '../status-chip/status-chip.component';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'project-list',
@@ -39,16 +39,16 @@ export class ProjectListComponent implements OnInit {
   projects: Project[] = [];
   readonly panelOpenState = signal(false);
 
-  constructor(private localStorageService: LocalStorageService) {
-    this.projects = localStorageService.getProjects();
+  constructor(private projectDataService: ProjectService ) {
+    this.projects = projectDataService.getProjects();
   }
 
   ngOnInit(): void {}
 
   removeProject(projectId: number) {
     if (confirm('Tem certeza que deseja remover este projeto?') && projectId) {
-      this.localStorageService.removeProject(projectId);
-      this.projects = this.localStorageService.getProjects();
+      this.projectDataService.removeProject(projectId);
+      this.projects = this.projectDataService.getProjects();
     }
   }
 

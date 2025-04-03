@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Task, TaskFormGroup } from '../../types/Task';
-import { LocalStorageService } from '../../services/local-storage.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -38,7 +38,7 @@ export class AddTaskDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddTaskDialogComponent>,
-    private localStorageService: LocalStorageService
+    private projectDataService: ProjectService 
   ) {
     this.projectId = data.projectId;
   }
@@ -59,7 +59,7 @@ export class AddTaskDialogComponent implements OnInit {
 
   addTask(): void {
     if (this.taskForm.valid) {
-      this.localStorageService.addNewTask(this.projectId, this.taskForm.value);
+      this.projectDataService.addTaskToProject(this.projectId, this.taskForm.value);
       this.dialogRef.close(this.taskForm.value);
     }
   }

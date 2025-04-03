@@ -5,14 +5,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { ResponsiveService } from '../../services/responsive.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { StatusChipComponent } from '../status-chip/status-chip.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { TaskCardComponent } from "../task-card/task-card.component";
+import { TaskCardComponent } from '../task-card/task-card.component';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'project-detail',
@@ -28,8 +28,8 @@ import { TaskCardComponent } from "../task-card/task-card.component";
     StatusChipComponent,
     MatCardModule,
     MatChipsModule,
-    TaskCardComponent
-],
+    TaskCardComponent,
+  ],
 })
 export class ProjectDetailComponent {
   selectedProject;
@@ -38,11 +38,11 @@ export class ProjectDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    localStorageService: LocalStorageService,
+    projectDataService: ProjectService,
     private responsiveService: ResponsiveService
   ) {
     const projectId = this.route.snapshot.params['projectId'];
-    this.selectedProject = localStorageService.getProjectById(projectId);
+    this.selectedProject = projectDataService.getProjectById(projectId);
   }
   ngOnInit() {
     this.subscription = this.responsiveService.isMobile$.subscribe(

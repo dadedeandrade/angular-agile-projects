@@ -14,8 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelect, MatOption } from '@angular/material/select';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { ProjectFormGroup } from '../../types/Project';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-add-project-dialog',
@@ -37,7 +37,7 @@ export class AddProjectDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<AddProjectDialogComponent>,
-    private localStorageService: LocalStorageService
+    private projectDataService: ProjectService 
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +71,7 @@ export class AddProjectDialogComponent implements OnInit {
 
   addNewProject() {
     if (this.projectForm.valid) {
-      this.localStorageService.addNewProject(this.projectForm.value);
+      this.projectDataService.addNewProject(this.projectForm.value);
       this.dialogRef.close(this.projectForm.value);
     }
   }
