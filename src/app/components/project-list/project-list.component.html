@@ -26,12 +26,13 @@
             : "Ainda não há descrição deste projeto"
         }}
       </p>
-      <p class="project-list-item__hintMessage">
-        {{
-          el.tasks
-            ? el.tasks
-            : "Não há tarefas atribuídas a este projeto, abra-o para criar a primeira!"
-        }}
+      <p class="project-list-item__hintMessage"></p>
+      <label *ngIf="el.tasks.length > 0" for="taskLists">Tarefas:</label>
+      <ul *ngIf="el.tasks.length > 0" id="taskLists">
+        <li *ngFor="let task of el.tasks">{{ task.title }}</li>
+      </ul>
+      <p *ngIf="!el.tasks">
+        Não há tarefas atribuídas a este projeto, abra-o para criar a primeira!
       </p>
     </mat-card-content>
     <mat-card-footer class="project-list-item__footer">
