@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,11 +38,15 @@ export class ProjectDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     projectDataService: ProjectService,
     private responsiveService: ResponsiveService
   ) {
     const projectId = this.route.snapshot.params['projectId'];
     this.selectedProject = projectDataService.getProjectById(projectId);
+    if (!this.selectedProject) {
+      this.router.navigate(['']);
+    }
   }
   ngOnInit() {
     this.subscription = this.responsiveService.isMobile$.subscribe(

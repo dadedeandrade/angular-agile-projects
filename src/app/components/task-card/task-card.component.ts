@@ -5,6 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatChipSet } from '@angular/material/chips';
 import { StatusChipComponent } from '../status-chip/status-chip.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-task-card',
@@ -16,9 +17,18 @@ import { MatButtonModule } from '@angular/material/button';
     MatChipSet,
     StatusChipComponent,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
   ],
 })
 export class TaskCardComponent {
   @Input() task!: Task;
+  @Input() projectId!: number;
+
+  constructor(private projectService: ProjectService) {}
+
+  handleTaskDeleteClick() {
+    if (confirm('Tem certeza que deseja remover esta tarefa?')) {
+      this.projectService.removeTask(this.projectId, this.task.id);
+    }
+  }
 }

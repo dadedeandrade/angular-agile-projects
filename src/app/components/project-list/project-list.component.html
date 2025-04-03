@@ -11,7 +11,7 @@
           <button [routerLink]="['/project', el.id]" mat-fab color="accent">
             <mat-icon>edit</mat-icon>
           </button>
-          <button (click)="removeProject(el.id)" mat-fab>
+          <button (click)="handleRemoveProjectClick(el.id)" mat-fab>
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -47,4 +47,8 @@
       </mat-chip-set>
     </mat-card-footer>
   </mat-card>
+
+  <p *ngIf="projects.length == 0">
+    Ainda não há projetos, comece adicionando um :)
+  </p>
 </div>

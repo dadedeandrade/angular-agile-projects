@@ -45,7 +45,7 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  removeProject(projectId: number) {
+  handleRemoveProjectClick(projectId: number) {
     if (confirm('Tem certeza que deseja remover este projeto?') && projectId) {
       this.projectDataService.removeProject(projectId);
       this.projects = this.projectDataService.getProjects();

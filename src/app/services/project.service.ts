@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Project } from '../types/Project';
 import { BehaviorSubject } from 'rxjs';
-import { generateUniqueId } from '../helpers/id-generator';
 import { Task } from '../types/Task';
+import {
+  generateUniqueId,
+  generateUniqueIdForTasks,
+} from '../helpers/id-generator';
 
 interface ProjectState {
   projects: Project[];
@@ -51,13 +54,18 @@ export class ProjectService {
   addTaskToProject(projectId: number, task: Task) {
     const projects = this.getProjects();
     const selectedProjectForTheTask = projects.find((el) => el.id == projectId);
-
-    if (selectedProjectForTheTask) {
-      selectedProjectForTheTask.tasks.push(task);
-      this.saveNewTask(selectedProjectForTheTask);
-    } else {
-      alert(`deu ruim no addTaskToProject`);
+    if (!selectedProjectForTheTask) {
+      return alert(`deu ruim no addTaskToProject`);
     }
+    const taskWithId: Task = {
+      ...task,
+      id: generateUniqueIdForTasks(selectedProjectForTheTask),
+    };
+
+    console.log(taskWithId);
+
+    selectedProjectForTheTask.tasks.push(taskWithId);
+    this.saveNewTask(selectedProjectForTheTask);
   }
 
   saveNewTask(projectWithTheTask: Project): void {
@@ -77,5 +85,22 @@ export class ProjectService {
       (project) => project.id !== projectId
     );
     this.updateProjects(projects);
+  }
+
+  removeTask(projectId: number, taskId: number): void {
+    const projects = this.getProjects();
+    const project = projects.find((el) => el.id === projectId);
+
+    console.log(projectId);
+
+    console.log(project);
+    console.log(projects);
+
+    if (project) {
+      project.tasks = project.tasks.filter((task) => task.id !== taskId);
+      this.updateProjects(projects);
+    } else {
+      alert(`deu ruim no removeTask.`);
+    }
   }
 }
