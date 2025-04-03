@@ -21,7 +21,7 @@
   <button
     *ngIf="isProjectPage"
     mat-stroked-button
-    (click)="openAddTaskDialog()"
+    (click)="openAddTaskDialog(currentProjectId)"
   >
     Adicionar Tarefa
   </button>

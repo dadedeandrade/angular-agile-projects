@@ -1,9 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -15,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Task } from '../../types/Task';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -32,12 +29,16 @@ import { Task } from '../../types/Task';
 })
 export class AddTaskDialogComponent implements OnInit {
   taskForm!: FormGroup;
+  projectId!: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddTaskDialogComponent>,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private localStorageService: LocalStorageService
+  ) {
+    this.projectId = data.projectId;
+  }
 
   ngOnInit(): void {
     this.taskForm = this.fb.nonNullable.group<Task>({
@@ -55,9 +56,8 @@ export class AddTaskDialogComponent implements OnInit {
 
   addTask(): void {
     if (this.taskForm.valid) {
+      this.localStorageService.addNewTask(this.projectId, this.taskForm.value);
       this.dialogRef.close(this.taskForm.value);
-      console.log(this.taskForm.value);
-      
     }
   }
 }

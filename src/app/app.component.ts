@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  ActivatedRoute,
   NavigationEnd,
   Router,
   RouterModule,
@@ -35,10 +36,12 @@ export class AppComponent {
   isTaskPage: boolean = false;
   subscription!: Subscription;
   isMobile: boolean = false;
+  currentProjectId: number | undefined = undefined;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
+    private route: ActivatedRoute,
     private responsiveService: ResponsiveService
   ) {
     this.router.events
@@ -50,7 +53,11 @@ export class AppComponent {
           (prev, curr) => prev.urlAfterRedirects === curr.urlAfterRedirects
         )
       )
-      .subscribe((event) => this.updatePageFlags(event.urlAfterRedirects));
+      .subscribe((event) => {
+        const projectId = this.route.snapshot.firstChild?.params['projectId'];
+        this.currentProjectId = projectId ? Number(projectId) : undefined;
+        this.updatePageFlags(event.urlAfterRedirects);
+      });
   }
   private updatePageFlags(url: string): void {
     this.isHome = url.startsWith('/home');
@@ -59,20 +66,13 @@ export class AppComponent {
   }
 
   openAddProjectDialog() {
-    this.openDialog(AddProjectDialogComponent);
+    this.dialog.open(AddProjectDialogComponent);
   }
 
-  openAddTaskDialog() {
-    this.openDialog(AddTaskDialogComponent);
-  }
-
-  openDialog(component: any) {
-    this.dialog
-      .open(component)
-      .afterClosed()
-      .subscribe((item) => {
-        console.log('Dados afterclose', item);
-      });
+  openAddTaskDialog(projectId: number | undefined) {
+    this.dialog.open(AddTaskDialogComponent, {
+      data: { projectId },
+    });
   }
 
   ngOnInit() {

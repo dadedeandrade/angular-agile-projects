@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelect, MatOption } from '@angular/material/select';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { Project } from '../../types/Project';
+import { ProjectFormGroup } from '../../types/Project';
 
 @Component({
   selector: 'app-add-project-dialog',
@@ -34,7 +34,7 @@ import { Project } from '../../types/Project';
 })
 export class AddProjectDialogComponent implements OnInit {
   projectForm!: FormGroup;
-  
+
   constructor(
     private dialogRef: MatDialogRef<AddProjectDialogComponent>,
     private fb: FormBuilder,
@@ -42,14 +42,14 @@ export class AddProjectDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.projectForm = this.fb.nonNullable.group<Project>({
-      id: 1,
-      name: '',
-      description: '',
-      status: 'Em andamento',
-      createdAt: new Date().toISOString().split('T')[0],
-      completedAt: null,
-      tasks: [],
+    this.projectForm = this.fb.nonNullable.group<ProjectFormGroup>({
+      id: this.fb.control(1),
+      name: this.fb.control('', Validators.required),
+      description: this.fb.control(''),
+      status: this.fb.control('Em andamento'),
+      createdAt: this.fb.control(new Date().toISOString().split('T')[0]),
+      completedAt: this.fb.control(null),
+      tasks: this.fb.control([]),
     });
     this.setupConditionalValidation();
   }

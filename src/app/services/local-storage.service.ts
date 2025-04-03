@@ -48,6 +48,26 @@ export class LocalStorageService {
   }
 
   addNewTask(projectId: number, task: Task) {
-    console.log(projectId, task);
+    const projects = this.getProjects();
+    const selectedProjectForTheTask = projects.find((el) => el.id == projectId);
+
+    if (selectedProjectForTheTask) {
+      selectedProjectForTheTask.tasks.push(task);
+      this.saveNewTask(selectedProjectForTheTask);
+    } else {
+      alert(`deu ruim no addnewtask`);
+    }
+  }
+
+  saveNewTask(projectWithTheTask: Project): void {
+    const projects = this.getProjects();
+
+    const index = projects.findIndex((el) => el.id === projectWithTheTask.id);
+    if (index !== -1) {
+      projects[index] = projectWithTheTask;
+      localStorage.setItem(this.storageKey, JSON.stringify({ projects }));
+    } else {
+      alert(`deu ruim no saveTask`);
+    }
   }
 }
