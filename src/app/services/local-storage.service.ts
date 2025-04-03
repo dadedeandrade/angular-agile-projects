@@ -35,6 +35,7 @@ export class LocalStorageService {
 
   saveProjects(projects: Project[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify({ projects }));
+    this.projectsSubject.next({ projects }); // 🔥 Notify subscribers
   }
 
   addNewProject(newProject: Project): void {
@@ -69,5 +70,12 @@ export class LocalStorageService {
     } else {
       alert(`deu ruim no saveTask`);
     }
+  }
+
+  removeProject(projectId: number): void {
+    const projects = this.getProjects().filter(
+      (project) => project.id !== projectId
+    );
+    this.saveProjects(projects);
   }
 }

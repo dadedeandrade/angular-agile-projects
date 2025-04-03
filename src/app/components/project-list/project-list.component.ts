@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
-import { RouterModule, RouterLink } from '@angular/router';
+import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { Project } from '../../types/Project';
 import { LocalStorageService } from '../../services/local-storage.service';
@@ -29,21 +30,26 @@ import { StatusChipComponent } from '../status-chip/status-chip.component';
     MatChipsModule,
     MatGridListModule,
     StatusChipComponent,
+    MatExpansionModule,
   ],
   templateUrl: './project-list.component.html',
   styleUrl: './project-list.component.css',
 })
 export class ProjectListComponent implements OnInit {
   projects: Project[] = [];
+  readonly panelOpenState = signal(false);
 
-  constructor(localStorageService: LocalStorageService) {
+  constructor(private localStorageService: LocalStorageService) {
     this.projects = localStorageService.getProjects();
   }
 
   ngOnInit(): void {}
 
-  removeProject() {
-    alert('Removendo [projeto]...');
+  removeProject(projectId: number) {
+    if (confirm('Tem certeza que deseja remover este projeto?') && projectId) {
+      this.localStorageService.removeProject(projectId);
+      this.projects = this.localStorageService.getProjects();
+    }
   }
 
   editProject() {
