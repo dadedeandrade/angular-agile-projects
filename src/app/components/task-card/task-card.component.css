@@ -1,0 +1,49 @@
+.task-list-item {
+  transition: transform 0.3s ease-in-out;
+  width: 100%;
+  max-width: 400px;
+  height: fit-content;
+}
+
+.task-list-item__createdAt p,
+.task-list-item__createdAt i {
+  margin: 0;
+  font-size: 14px;
+}
+
+.task-list-item__footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.task-list-item__hintMessage {
+  font-size: 12px;
+  color: rgb(224, 227, 226);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.task-list-item__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-list-item:hover {
+}
+
+.mat-chip {
+  font-weight: bold;
+  color: white;
+  margin-right: 8px;
+}
+
+.date {
+  font-size: 14px;
+  color: gray;
+}
+
+.mat-card-header-align-center {
+  align-items: center !important;
+}

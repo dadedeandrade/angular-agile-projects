@@ -9,7 +9,16 @@ import { MatChipsModule } from '@angular/material/chips';
   templateUrl: './status-chip.component.html',
 })
 export class StatusChipComponent {
-  @Input() status!: 'Em andamento' | 'Concluído' | 'Planejado';
+  @Input() status!:
+    | 'Em andamento'
+    | 'Concluído'
+    | 'Planejado'
+    | 'Pendente'
+    | 'Em Progresso'
+    | 'Finalizado'
+    | 'Baixa'
+    | 'Média'
+    | 'Alta';
   @Input() completedAt?: string | null;
 
   get chipColor(): 'primary' | 'accent' | 'warn' {

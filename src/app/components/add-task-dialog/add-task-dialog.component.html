@@ -3,12 +3,20 @@
   <form [formGroup]="taskForm" (ngSubmit)="addTask()" class="dialog-form">
     <mat-form-field>
       <mat-label>Título</mat-label>
-      <input matInput formControlName="title" required />
+      <input maxlength="17" #title matInput formControlName="title" required />
+      <mat-hint align="end">{{ title.value.length }} / 17</mat-hint>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Descrição</mat-label>
-      <textarea matInput formControlName="description" rows="3"></textarea>
+      <textarea
+        maxlength="256"
+        #description
+        matInput
+        formControlName="description"
+        rows="3"
+      ></textarea>
+      <mat-hint align="end">{{ description.value.length }} / 256</mat-hint>
     </mat-form-field>
 
     <mat-form-field>

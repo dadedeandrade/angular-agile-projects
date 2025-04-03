@@ -54,16 +54,14 @@
       <button mat-button>Editar projeto</button>
     </mat-sidenav>
 
-    <mat-sidenav-content>
-      <ul *ngFor="let item of selectedProject?.tasks">
-        <li>
-          {{ item.description }}
-        </li>
-        <li *ngFor="let item of selectedProject?.tasks">{{ item.id }}</li>
-        <li *ngFor="let item of selectedProject?.tasks">{{ item.priority }}</li>
-        <li *ngFor="let item of selectedProject?.tasks">{{ item.status }}</li>
-        <li *ngFor="let item of selectedProject?.tasks">{{ item.title }}</li>
-      </ul>
+    <mat-sidenav-content class="task-list-container">
+      <h2>Tarefas</h2>
+      <div class="task-list">
+        <app-task-card
+          *ngFor="let task of selectedProject?.tasks"
+          [task]="task"
+        ></app-task-card>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

@@ -14,7 +14,6 @@
 
 .project-list-item {
   transition: transform 0.3s ease-in-out;
-  cursor: pointer;
 }
 
 .project-list-item__createdAt p,
@@ -32,6 +31,9 @@
 .project-list-item__hintMessage {
   font-size: 12px;
   color: rgb(224, 227, 226);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .project-list-item__actions {
@@ -39,13 +41,9 @@
   gap: 8px;
 }
 
-/* efeitos */
-
 .project-list-item:hover {
   transform: translateY(-5px);
 }
-
-/* elementos especificos */
 
 .mat-chip {
   font-weight: bold;

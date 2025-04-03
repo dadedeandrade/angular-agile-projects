@@ -9,7 +9,10 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { ResponsiveService } from '../../services/responsive.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { StatusChipComponent } from "../status-chip/status-chip.component";
+import { StatusChipComponent } from '../status-chip/status-chip.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { TaskCardComponent } from "../task-card/task-card.component";
 
 @Component({
   selector: 'project-detail',
@@ -22,7 +25,10 @@ import { StatusChipComponent } from "../status-chip/status-chip.component";
     MatSidenavModule,
     MatListModule,
     CommonModule,
-    StatusChipComponent
+    StatusChipComponent,
+    MatCardModule,
+    MatChipsModule,
+    TaskCardComponent
 ],
 })
 export class ProjectDetailComponent {

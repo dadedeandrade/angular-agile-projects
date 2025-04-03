@@ -1,1 +1,38 @@
-<p>task-card works!</p>
+<mat-card class="task-list-item" appearance="outlined">
+  <mat-card-header class="mat-card-header-align-center">
+    <mat-card-title-group>
+      <mat-card-title>
+        <div matBadge="4" matBadgeOverlap="false" class="demo-section">
+          {{ task.id }} - {{ task.title }}
+        </div>
+        <mat-card-subtitle>Prioridade: </mat-card-subtitle>
+      </mat-card-title>
+      <div class="task-list-item__actions">
+        <button mat-fab color="accent">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-fab>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <br />
+    <p class="task-list-item__hintMessage">
+      {{
+        task.description
+          ? task.description
+          : "Ainda não há descrição para esta tarefa"
+      }}
+    </p>
+  </mat-card-content>
+  <mat-card-footer class="task-list-item__footer-container">
+    <mat-chip-set aria-label="Project details">
+      <app-project-status-chip [status]="task.status"></app-project-status-chip>
+      <app-project-status-chip
+        [status]="task.priority"
+      ></app-project-status-chip>
+    </mat-chip-set>
+  </mat-card-footer>
+</mat-card>
