@@ -7,6 +7,8 @@
 .project-detail--is-mobile .project-detail__toolbar {
   position: fixed;
   z-index: 2;
+  display: flex;
+  justify-content: space-between;
 }
 
 .project-detail--is-mobile {
