@@ -1,9 +1,20 @@
 <mat-dialog-content class="mat-typography">
   <h2 mat-dialog-title>Adicionar Projeto</h2>
-  <form [formGroup]="projectForm" (ngSubmit)="addNewProject()" class="dialog-form">
+  <form
+    [formGroup]="projectForm"
+    (ngSubmit)="addNewProject()"
+    class="dialog-form"
+  >
     <mat-form-field>
       <mat-label>Nome do Projeto</mat-label>
-      <input matInput formControlName="name" required />
+      <input
+        maxlength="17"
+        #projectName
+        matInput
+        formControlName="name"
+        required
+      />
+      <mat-hint align="end">{{ projectName.value.length }} / 17</mat-hint>
     </mat-form-field>
 
     <mat-form-field>
@@ -33,6 +44,13 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="start">
-  <button mat-raised-button type="submit" color="primary" (click)="addNewProject()">Salvar</button>
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    (click)="addNewProject()"
+  >
+    Salvar
+  </button>
   <button mat-raised-button color="warn" (click)="closeDialog()">Fechar</button>
 </mat-dialog-actions>
