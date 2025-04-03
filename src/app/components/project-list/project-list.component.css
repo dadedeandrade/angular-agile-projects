@@ -1,3 +1,6 @@
+.project-list-title {
+  padding: 16px;
+}
 .project-list-container {
   display: grid;
   gap: 16px;

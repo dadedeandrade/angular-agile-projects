@@ -19,7 +19,14 @@
 
     <mat-form-field>
       <mat-label>Descrição</mat-label>
-      <textarea matInput formControlName="description" rows="3"></textarea>
+      <textarea
+        #description
+        maxlength="256"
+        matInput
+        formControlName="description"
+        rows="3"
+      ></textarea>
+      <mat-hint align="end">{{ description.value.length }} / 256</mat-hint>
     </mat-form-field>
 
     <mat-form-field>

@@ -1,22 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
-import {
-  MAT_BOTTOM_SHEET_DATA,
-  MatBottomSheetRef,
-} from '@angular/material/bottom-sheet';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatOption, MatSelect } from '@angular/material/select';
-import { ProjectService } from '../../services/project.service';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Project } from '../../types/Project';
+import { Component, Inject } from '@angular/core';
+
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+
+import { ProjectService } from '../../services/project.service';
+
+import { Project } from '../../types/Project';
 
 @Component({
   selector: 'edit-project-bottomsheet',
@@ -68,7 +71,6 @@ export class EditProjectBottomSheet {
 
   handleEditProjectButton(event: Event) {
     event.preventDefault();
-    console.log(this.projectForm.value);
 
     if (this.projectForm.valid) {
       const updatedProject: Project = {
