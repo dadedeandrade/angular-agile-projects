@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
+
 import { MatListModule } from '@angular/material/list';
-import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
+import { RouterModule, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,9 +12,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-import { Project } from '../../types/Project';
-import { StatusChipComponent } from '../status-chip/status-chip.component';
 import { ProjectService } from '../../services/project.service';
+
+import { StatusChipComponent } from '../status-chip/status-chip.component';
+
+import { Project } from '../../types/Project';
 
 @Component({
   selector: 'project-list',

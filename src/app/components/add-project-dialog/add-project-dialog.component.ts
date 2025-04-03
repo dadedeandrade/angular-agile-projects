@@ -17,9 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelect, MatOption } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { ProjectService } from '../../services/project.service';
+
 import { ProjectFormGroup } from '../../types/Project';
 
 @Component({
