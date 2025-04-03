@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -37,19 +37,18 @@ export class AddProjectDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<AddProjectDialogComponent>,
-    private fb: FormBuilder,
     private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
-    this.projectForm = this.fb.nonNullable.group<ProjectFormGroup>({
-      id: this.fb.control(1),
-      name: this.fb.control('', Validators.required),
-      description: this.fb.control(''),
-      status: this.fb.control('Em andamento'),
-      createdAt: this.fb.control(new Date().toISOString().split('T')[0]),
-      completedAt: this.fb.control(null),
-      tasks: this.fb.control([]),
+    this.projectForm = new FormGroup<ProjectFormGroup>({
+      id: new FormControl(1),
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      status: new FormControl('Em andamento'),
+      createdAt: new FormControl(new Date().toISOString().split('T')[0]),
+      completedAt: new FormControl(null),
+      tasks: new FormControl([]),
     });
     this.setupConditionalValidation();
   }

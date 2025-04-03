@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -39,7 +38,6 @@ export class AddTaskDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddTaskDialogComponent>,
-    private fb: FormBuilder,
     private localStorageService: LocalStorageService
   ) {
     this.projectId = data.projectId;
