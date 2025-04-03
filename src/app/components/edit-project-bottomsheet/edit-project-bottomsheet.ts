@@ -1,0 +1,85 @@
+import { CommonModule } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { ProjectService } from '../../services/project.service';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Project } from '../../types/Project';
+import { MatButtonModule } from '@angular/material/button';
+
+@Component({
+  selector: 'edit-project-bottomsheet',
+  templateUrl: 'edit-project-bottomsheet.html',
+  styleUrls: ['./edit-project-bottomsheet.css'],
+  imports: [
+    MatListModule,
+    MatFormFieldModule,
+    MatSelect,
+    MatOption,
+    CommonModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+  ],
+})
+export class EditProjectBottomSheet {
+  projectForm!: FormGroup;
+
+  constructor(
+    private bottomSheetRef: MatBottomSheetRef<EditProjectBottomSheet>,
+    private projectService: ProjectService,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public projectToEdit: Project
+  ) {
+    this.projectForm = new FormGroup({
+      name: new FormControl(this.projectToEdit.name, Validators.required),
+      description: new FormControl(this.projectToEdit.description),
+      status: new FormControl(this.projectToEdit.status),
+      createdAt: new FormControl(this.projectToEdit.createdAt),
+      completedAt: new FormControl(
+        this.projectToEdit.completedAt,
+        Validators.required
+      ),
+    });
+
+    this.bottomSheetRef.disableClose = true;
+  }
+
+  ngOnInit(): void {}
+
+  handleEditProjectButton(event: Event) {
+    event.preventDefault();
+    if (this.projectForm.valid) {
+      const updatedProject: Project = {
+        ...this.projectToEdit,
+        ...this.projectForm.value,
+      };
+
+      if (
+        updatedProject.status === 'Planejado' ||
+        updatedProject.status === 'Em andamento'
+      ) {
+        updatedProject.completedAt = null;
+      }
+
+      this.projectService.editProject(updatedProject);
+      this.bottomSheetRef.dismiss();
+    }
+  }
+
+  handleCancelEditProjectButton(event: Event): void {
+    event.preventDefault();
+    this.projectForm.reset();
+    this.bottomSheetRef.dismiss();
+  }
+}

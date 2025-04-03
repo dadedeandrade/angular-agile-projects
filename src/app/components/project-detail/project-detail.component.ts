@@ -1,65 +1,90 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ResponsiveService } from '../../services/responsive.service';
 import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import {
+  MatBottomSheet,
+  MatBottomSheetModule,
+} from '@angular/material/bottom-sheet';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
-import { StatusChipComponent } from '../status-chip/status-chip.component';
-import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { TaskCardComponent } from '../task-card/task-card.component';
+import { MatButtonModule } from '@angular/material/button';
+
+import { ResponsiveService } from '../../services/responsive.service';
 import { ProjectService } from '../../services/project.service';
 import { DialogService } from '../../services/dialog.service';
+
+import { EditProjectBottomSheet } from '../edit-project-bottomsheet/edit-project-bottomsheet';
+import { StatusChipComponent } from '../status-chip/status-chip.component';
+import { TaskCardComponent } from '../task-card/task-card.component';
+
+import { Project } from '../../types/Project';
 
 @Component({
   selector: 'project-detail',
   templateUrl: 'project-detail.component.html',
   styleUrl: 'project-detail.component.css',
+  standalone: true,
   imports: [
     MatToolbarModule,
-    MatButtonModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatChipsModule,
     CommonModule,
     StatusChipComponent,
-    MatCardModule,
-    MatChipsModule,
     TaskCardComponent,
+    MatBottomSheetModule,
+    MatButtonModule,
   ],
 })
-export class ProjectDetailComponent {
-  selectedProject;
-  subscription!: Subscription;
+export class ProjectDetailComponent implements OnInit, OnDestroy {
+  selectedProject: Project | undefined = undefined;
+  private subscription!: Subscription;
   isMobile: boolean = false;
+  private bottomSheet = inject(MatBottomSheet);
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    projectDataService: ProjectService,
+    private projectService: ProjectService,
     private responsiveService: ResponsiveService,
     private dialogService: DialogService
-  ) {
-    const projectId = this.route.snapshot.params['projectId'];
-    this.selectedProject = projectDataService.getProjectById(projectId);
-    if (!this.selectedProject) {
-      this.router.navigate(['']);
-    }
-  }
+  ) {}
+
   ngOnInit() {
-    this.subscription = this.responsiveService.isMobile$.subscribe(
-      (isMobile) => {
-        this.isMobile = isMobile;
+    const projectId = this.route.snapshot.params['projectId'];
+
+    this.subscription = this.projectService.projectsSubject.subscribe(
+      (state) => {
+        this.selectedProject = state.projects.find((el) => el.id == projectId);
+
+        if (!this.selectedProject) {
+          this.router.navigate(['']);
+        }
       }
+    );
+
+    this.subscription = this.responsiveService.isMobile$.subscribe(
+      (isMobile) => (this.isMobile = isMobile)
     );
   }
 
-  handleAddTaskClick() {
-    this.dialogService.triggerOpenTasktDialog();
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
+  handleAddTaskClick() {
+    this.dialogService.triggerOpenTaskDialog();
+  }
+
+  handleEditProjectClick() {
+    this.bottomSheet.open(EditProjectBottomSheet, {
+      data: this.selectedProject,
+    });
+  }
 }

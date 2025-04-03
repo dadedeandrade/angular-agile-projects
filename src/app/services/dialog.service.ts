@@ -8,7 +8,7 @@ export class DialogService {
   private openTaskDialogSubject = new Subject<void>();
   openProjectDialog$ = this.openTaskDialogSubject.asObservable();
 
-  triggerOpenTasktDialog() {
+  triggerOpenTaskDialog() {
     this.openTaskDialogSubject.next();
   }
 }

@@ -5,6 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
 import {
   MatDialogRef,
   MatDialogContent,
@@ -17,9 +19,8 @@ import { MatSelect, MatOption } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-import { ProjectFormGroup } from '../../types/Project';
 import { ProjectService } from '../../services/project.service';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { ProjectFormGroup } from '../../types/Project';
 
 @Component({
   selector: 'app-add-project-dialog',
@@ -35,7 +36,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatDialogActions,
     ReactiveFormsModule,
     CommonModule,
-    MatDatepickerModule,
   ],
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
