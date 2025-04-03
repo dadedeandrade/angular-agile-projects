@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
 
 import { ProjectFormGroup } from '../../types/Project';
+import completedDateValidator from '../../helpers/complete-date-validator';
 
 @Component({
   selector: 'app-add-project-dialog',
@@ -62,10 +63,16 @@ export class AddProjectDialogComponent implements OnInit {
   }
 
   private setupConditionalValidation(): void {
-    this.projectForm.get('status')?.valueChanges.subscribe((status) => {
-      const completedAtControl = this.projectForm.get('completedAt');
+    const statusControl = this.projectForm.get('status');
+    const completedAtControl = this.projectForm.get('completedAt');
+    const createdAtControl = this.projectForm.get('createdAt');
+
+    statusControl?.valueChanges.subscribe((status) => {
       if (status === 'Concluído') {
-        completedAtControl?.setValidators(Validators.required);
+        completedAtControl?.setValidators([
+          Validators.required,
+          completedDateValidator(createdAtControl),
+        ]);
       } else {
         completedAtControl?.clearValidators();
       }

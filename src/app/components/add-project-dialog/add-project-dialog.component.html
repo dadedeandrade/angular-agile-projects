@@ -45,7 +45,12 @@
     <mat-form-field *ngIf="projectForm.get('status')?.value == 'Concluído'">
       <mat-label>Data de Conclusão</mat-label>
       <input matInput formControlName="completedAt" type="date" />
-      <mat-hint>Preencha a data de conclusão</mat-hint>
+      <mat-hint>Preencha a data de conclusão.</mat-hint>
+      <mat-error
+        *ngIf="projectForm.get('completedAt')?.hasError('completedDateInvalid')"
+      >
+        A data de conclusão não pode ser anterior à data de criação
+      </mat-error>
     </mat-form-field>
   </form>
 </mat-dialog-content>

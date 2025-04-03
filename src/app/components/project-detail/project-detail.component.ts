@@ -61,9 +61,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
     this.subscription = this.projectService.projectsSubject.subscribe(
       (state) => {
-        this.selectedProject = state.projects.find((el) => el.id == projectId);
+        const foundProject = state.projects.find((el) => el.id == projectId);
 
-        if (!this.selectedProject) {
+        if (foundProject) {
+          this.selectedProject = foundProject;
+        } else if (!this.selectedProject) {
           this.router.navigate(['']);
         }
       }

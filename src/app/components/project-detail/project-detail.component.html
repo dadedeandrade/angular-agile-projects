@@ -40,26 +40,23 @@
         </mat-list-item>
 
         <mat-list-item>
+          <span matListItemTitle
+            >Data de criação:
+            {{ selectedProject.createdAt | date : "dd/MM/yyyy" }}</span
+          >
+        </mat-list-item>
+
+        <mat-list-item>
           <app-project-status-chip
             [status]="selectedProject.status"
             [completedAt]="selectedProject.completedAt"
           ></app-project-status-chip>
         </mat-list-item>
-
-        <mat-list-item>
-          <span matListItemTitle
-            >Data de criação: {{ selectedProject.createdAt }}</span
-          >
-        </mat-list-item>
-
-        <mat-list-item *ngIf="selectedProject.completedAt">
-          <span matListItemTitle
-            >Data de conclusão: {{ selectedProject.completedAt }}</span
-          >
-        </mat-list-item>
       </mat-list>
 
-      <button mat-button (click)="handleEditProjectClick()">Editar projeto</button>
+      <button mat-button (click)="handleEditProjectClick()">
+        Editar projeto
+      </button>
     </mat-sidenav>
 
     <mat-sidenav-content class="task-list-container">

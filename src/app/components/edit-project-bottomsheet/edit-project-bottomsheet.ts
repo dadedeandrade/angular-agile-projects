@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProjectService } from '../../services/project.service';
 
 import { Project } from '../../types/Project';
+import completedDateValidator from '../../helpers/complete-date-validator';
 
 @Component({
   selector: 'edit-project-bottomsheet',
@@ -44,6 +45,10 @@ export class EditProjectBottomSheet {
     private projectService: ProjectService,
     @Inject(MAT_BOTTOM_SHEET_DATA) public projectToEdit: Project
   ) {
+    this.bottomSheetRef.disableClose = true;
+  }
+
+  ngOnInit(): void {
     this.projectForm = new FormGroup({
       name: new FormControl(this.projectToEdit.name, Validators.required),
       description: new FormControl(this.projectToEdit.description),
@@ -52,16 +57,19 @@ export class EditProjectBottomSheet {
       completedAt: new FormControl(this.projectToEdit.completedAt),
     });
     this.setupConditionalValidation();
-    this.bottomSheetRef.disableClose = true;
   }
 
-  ngOnInit(): void {}
-
   private setupConditionalValidation(): void {
-    this.projectForm.get('status')?.valueChanges.subscribe((status) => {
-      const completedAtControl = this.projectForm.get('completedAt');
+    const statusControl = this.projectForm.get('status');
+    const completedAtControl = this.projectForm.get('completedAt');
+    const createdAtControl = this.projectForm.get('createdAt');
+
+    statusControl?.valueChanges.subscribe((status) => {
       if (status === 'Concluído') {
-        completedAtControl?.setValidators(Validators.required);
+        completedAtControl?.setValidators([
+          Validators.required,
+          completedDateValidator(createdAtControl),
+        ]);
       } else {
         completedAtControl?.clearValidators();
       }
@@ -78,10 +86,7 @@ export class EditProjectBottomSheet {
         ...this.projectForm.value,
       };
 
-      if (
-        updatedProject.status === 'Planejado' ||
-        updatedProject.status === 'Em andamento'
-      ) {
+      if (updatedProject.status !== 'Concluído') {
         updatedProject.completedAt = null;
       }
 

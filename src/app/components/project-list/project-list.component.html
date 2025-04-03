@@ -9,7 +9,11 @@
       <mat-card-title-group>
         <mat-card-title> {{ project.id }} - {{ project.name }}</mat-card-title>
         <div class="project-list-item__actions">
-          <button [routerLink]="['/project', project.id]" mat-fab color="accent">
+          <button
+            [routerLink]="['/project', project.id]"
+            mat-fab
+            color="accent"
+          >
             <mat-icon>edit</mat-icon>
           </button>
           <button (click)="handleRemoveProjectClick(project.id)" mat-fab>
@@ -39,7 +43,7 @@
     <mat-card-footer class="project-list-item__footer">
       <div class="project-list-item__createdAt">
         <p>Data de criação</p>
-        <i>{{ project.createdAt }}</i>
+        <i>{{ project.createdAt | date : "dd/MM/yyyy" }}</i>
       </div>
       <mat-chip-set aria-label="Project details">
         <app-project-status-chip
