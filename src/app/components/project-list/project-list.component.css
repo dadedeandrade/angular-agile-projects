@@ -17,6 +17,9 @@
 
 .project-list-item {
   transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .project-list-item__createdAt p,
