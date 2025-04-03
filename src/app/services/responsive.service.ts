@@ -14,7 +14,7 @@ export class ResponsiveService {
   isMobile$ = this.isMobileSubject.asObservable();
 
   constructor() {
-    this.mobileQuery = this.mediaMatcher.matchMedia('(max-width: 600px)');
+    this.mobileQuery = this.mediaMatcher.matchMedia('(max-width: 840px)');
     this.isMobileSubject.next(this.mobileQuery.matches);
 
     this.mobileQuery.addEventListener('change', () => {

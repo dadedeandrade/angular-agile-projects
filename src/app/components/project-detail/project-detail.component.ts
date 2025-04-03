@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { ProjectService } from '../../services/project.service';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'project-detail',
@@ -40,7 +41,8 @@ export class ProjectDetailComponent {
     private route: ActivatedRoute,
     private router: Router,
     projectDataService: ProjectService,
-    private responsiveService: ResponsiveService
+    private responsiveService: ResponsiveService,
+    private dialogService: DialogService
   ) {
     const projectId = this.route.snapshot.params['projectId'];
     this.selectedProject = projectDataService.getProjectById(projectId);
@@ -55,4 +57,9 @@ export class ProjectDetailComponent {
       }
     );
   }
+
+  handleAddTaskClick() {
+    this.dialogService.triggerOpenTasktDialog();
+  }
+
 }

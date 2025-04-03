@@ -1,7 +1,15 @@
-<div *ngIf="selectedProject" class="project-detail" [class.project-detail--is-mobile]="isMobile">
+<div
+  *ngIf="selectedProject"
+  class="project-detail"
+  [class.project-detail--is-mobile]="isMobile"
+>
   <mat-toolbar class="project-detail__toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="handleAddTaskClick()">
+      <mat-icon>add</mat-icon>
     </button>
   </mat-toolbar>
 
@@ -64,7 +72,9 @@
         ></app-task-card>
       </div>
 
-      <p *ngIf="selectedProject.tasks.length == 0">Este projeto ainda não há tarefas, comece criando uma :)</p>
+      <p *ngIf="selectedProject.tasks.length == 0">
+        Este projeto ainda não há tarefas, comece criando uma :)
+      </p>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

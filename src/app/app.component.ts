@@ -16,6 +16,7 @@ import { ResponsiveService } from './services/responsive.service';
 import { MatIcon } from '@angular/material/icon';
 import { AddProjectDialogComponent } from './components/add-project-dialog/add-project-dialog.component';
 import { AddTaskDialogComponent } from './components/add-task-dialog/add-task-dialog.component';
+import { DialogService } from './services/dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -37,13 +38,18 @@ export class AppComponent {
   subscription!: Subscription;
   isMobile: boolean = false;
   currentProjectId: number | undefined = undefined;
+  projectId: number | undefined = undefined;
 
   constructor(
-    private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private responsiveService: ResponsiveService
+    private responsiveService: ResponsiveService,
+    private dialog: MatDialog,
+    private dialogService: DialogService
   ) {
+    this.dialogService.openProjectDialog$.subscribe(() => {
+      this.openAddTaskDialog(this.projectId);
+    });
     this.router.events
       .pipe(
         filter(
@@ -54,6 +60,7 @@ export class AppComponent {
         )
       )
       .subscribe((event) => {
+        this.projectId = this.route.snapshot.firstChild?.params['projectId'];
         const projectId = this.route.snapshot.firstChild?.params['projectId'];
         this.currentProjectId = projectId ? Number(projectId) : undefined;
         this.updatePageFlags(event.urlAfterRedirects);
