@@ -1,59 +1,50 @@
-# AngularAgileProjects
+# Gerenciador de Projetos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+Este é um sistema de gerenciamento de projetos desenvolvido em Angular. O objetivo é permitir a criação, edição e organização de projetos e tarefas de forma intuitiva e eficiente.
 
-## Development server
+## Tecnologias Utilizadas
 
-To start a local development server, run:
+- **Angular**: Framework principal para o desenvolvimento do frontend.
+- **Angular Material**: Para estilização e componentes modernos.
+- **Local Storage**: Persistência de dados sem necessidade de backend.
+- **TypeScript**: Para um código mais seguro e tipado.
 
-```bash
-ng serve
-```
+## Funcionalidades
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Criar, editar e excluir projetos.
+- Criar e excluir tarefas.
+- Definir status dos projetos: _Planejado, Em andamento, Concluído_.
+- Cada projeto pode conter múltiplas tarefas.
+- Validações para garantir integridade dos dados.
+- Armazenamento local via LocalStorage.
 
-## Code scaffolding
+## Como Rodar o Projeto
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Clone o repositório:**
+   ```sh
+   git clone https://github.com/seu-usuario/angular-agile-projects.git
+   cd angular-agile-projects
+   ```
+2. **Instale as dependências:**
 
-```bash
-ng generate component component-name
-```
+   ```sh
+   npm install
+   ```
+3. **Inicie o servidor de desenvolvimento:**
+   ```sh
+   ng serve
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+4. **Acesse a aplicação no navegador:**
+   ```
+   http://localhost:4200
+   ```
 
-```bash
-ng generate --help
-```
+## Melhorias Futuras
+- Implementação de backend para sincronização dos dados.
 
-## Building
+- Autenticação de usuários.
 
-To build the project run:
+- Melhorias na usabilidade e acessibilidade.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Testes unitários.
