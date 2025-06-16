@@ -88,5 +88,9 @@ export class AppComponent {
         this.isMobile = isMobile;
       }
     );
+
+    window.alert('Projeto desenvolvido em 3 dias para testar habilidades em angular.\nO objetivo é permitir a criação, edição e organização de projetos e tarefas de forma intuitiva e eficiente.')
+    window.alert('Tecnologias Utilizadas\n* *Angular*: Framework principal para o desenvolvimento do frontend.\n* *Angular Material*: Para estilização e componentes modernos.\n* *Local Storage*: Persistência de dados sem necessidade de backend.\n* *TypeScript*: Para um código mais seguro e tipado.')
+    window.alert('Funcionalidades\n* Criar, editar e excluir projetos.\n* Criar e excluir tarefas.\n* Definir status dos projetos: _Planejado, Em andamento, Concluído_.\n* Cada projeto pode conter múltiplas tarefas.\n* Validações para garantir integridade dos dados.\n* Armazenamento local via LocalStorage.')
   }
 }
